@@ -24,10 +24,10 @@
 #### Função para inserir item
 
 - Lambda Dashboard -> Create function -> Name [put_item_function] -> Create function
-- Inserir código da função ```put_item_function.js``` disponível na pasta ```/src``` -> Deploy
+- Inserir código da função ```put_item_function.mjs``` disponível na pasta ```/src``` -> Deploy
 - Configuration -> Execution role -> Abrir a Role no console do IAM
 - IAM -> Roles -> Role criada no passo anterior -> Permissions -> Add inline policy
-- Service - DynamoDB -> Manual actions -> add actions -> putItem
+- Service - DynamoDB -> Manual actions -> add actions -> PutItem
 - Resources -> Add arn -> Selecionar o arn da tabela criada no DynamoDB -> Add
 - Review policy -> Name [lambda_dynamodb_putItem_policy] -> Create policy
 
@@ -39,8 +39,8 @@
 
 ### No POSTMAN
 
-- Add Request -> Method POST -> Copiar o endpoint gerado no API Gateway
-- Body -> Raw -> JSON -> Adicionar o seguinte body
+- HTTP Request -> Method POST -> Copiar o endpoint gerado no API Gateway
+- JSON -> Adicionar o seguinte body
 ```
 {
   "id": "003",
@@ -74,17 +74,18 @@
 
 - Resources -> selecionar o resource criado -> selecionar o método criado -> Method Request -> Authorization - Selecionar o autorizador criado
 
-### No POSTMAN
+### No INSOMNIA
 
-- Add request -> Authorization
-- Type - OAuth 2.0
-- Callback URL [https://example.com/logout]
-- Auth URL [https://diolive.auth.sa-east-1.amazoncognito.com/login]
+- No body
+- AUTH Types - OAuth 2
+- Redirect URL [https://example.com]
+- Auth URL [https://diolive.auth.us-west-2.amazoncognito.com/login]
 - Client ID - obter o Client ID do Cognito em App clients
-- Scope [email - openid]
-- Client Authentication [Send client credentials in body]
-- Get New Acces Token
-- Copiar o token gerado
+- Advanced Options
+  - Scope [email openid]
+  - Client Authentication [Send client credentials in body]
+  - Clicar em Fetch Tokens
+  - Copiar o IDENTITY Token gerado
 
 - Selecionar a request para inserir item criada -> Authorization -> Type - Bearer Token -> Inserir o token copiado
 - Send
